@@ -1,52 +1,70 @@
 <!doctype html>
 <html lang="en">
 <head>
+   Set character encoding for the document -->
   <meta charset="utf-8" />
+
+  <!-- Set the page title shown in browser tab -->
   <title>My Fitness Coach</title>
+
+  <!-- Ensure responsive layout on mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- 👇 Link to your external CSS file -->
+  <!--  Link to your external CSS file for styling -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <!-- Main heading of the app -->
   <h1>My Fitness Coach</h1>
 
+  <!-- Container for chat messages -->
   <div id="chat"></div>
 
+  <!-- Form for user input -->
   <form id="form">
+    <!-- Input field for user message -->
     <input id="input" placeholder="Type your goal or ask a question..." autocomplete="off" />
+    <!-- Submit button -->
     <button type="submit">Send</button>
   </form>
 
   <script>
+    // Get references to DOM elements
     const chat = document.getElementById('chat');
     const form = document.getElementById('form');
     const input = document.getElementById('input');
-    const userId = localStorage.getItem('userId') || (localStorage.setItem('userId', crypto.randomUUID()), localStorage.getItem('userId'));
 
+    // Retrieve or generate a unique user ID using localStorage
+    const userId = localStorage.getItem('userId') || (
+      localStorage.setItem('userId', crypto.randomUUID()),
+      localStorage.getItem('userId')
+    );
+
+    // Function to add a message to the chat window
     function add(role, text) {
-      const div = document.createElement('div');
-      div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
-      div.textContent = text;
-      chat.appendChild(div);
-      chat.scrollTop = chat.scrollHeight;
+      const div = document.createElement('div'); // Create a new div element
+      div.className = 'msg ' + (role === 'user' ? 'user' : 'bot'); // Assign class based on sender
+      div.textContent = text; // Set message text
+      chat.appendChild(div); // Add message to chat container
+      chat.scrollTop = chat.scrollHeight; // Scroll to bottom of chat
     }
 
+    // Handle form submission
     form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-      add('user', text);
-      input.value = '';
+      e.preventDefault(); // Prevent default form behavior (page reload)
+
+      const text = input.value.trim(); // Get and trim input text
+      if (!text) return; // Exit if input is empty
+
+      add('user', text); // Display user's message
+      input.value = ''; // Clear input field
+
+      // Send message to backend API
       const r = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, message: text })
+        body: JSON.stringify({ userId, message: text }) // Send userId and message
       });
-      const j = await r.json();
-      add('bot', j.reply || 'No reply.');
-    });
-  </script>
-</body>
-</html>
+
+      const j = await
