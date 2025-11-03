@@ -1,0 +1,43 @@
+{
+  // Worker name (used for deploys and secrets)
+  "name": "fitness-coach",
+
+  // Entry file for your Worker
+  "main": "src/index.ts",
+
+  // Required compatibility date
+  "compatibility_date": "2025-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Bind Workers AI
+  "ai": { "binding": "AI" },
+
+  // Durable Object binding
+  "durable_objects": {
+    "bindings": [
+      { "name": "SESSION_DO", "class_name": "FitnessSession" }
+    ]
+  },
+
+  // KV namespace binding (replace with your actual ID)
+  "kv_namespaces": [
+    {
+      "binding": "USER_KV",
+      "id": "469c3fc1f24b422fa696cb1f5782a2a0"
+    }
+  ],
+
+  // Serve static assets (chat UI)
+  "assets": { "directory": "public" },
+
+  // Enable observability
+  "observability": { "enabled": true },
+
+  // Durable Object migrations (Free plan requires new_sqlite_classes)
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["FitnessSession"]
+    }
+  ]
+}

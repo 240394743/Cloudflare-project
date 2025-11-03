@@ -1,0 +1,138 @@
+:root {
+  --bg: #f6f7fb;
+  --primary: #2ecc71;
+  --primary-hover: #27ae60;
+  --accent: #1abc9c;
+  --text-dark: #222;
+  --text-light: #555;
+  --user-bubble: #e9f7ef;
+  --bot-bubble: #ffffff;
+  --border: #ddd;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --radius: 12px;
+}
+
+body {
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Header */
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Chat Container */
+#chat {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px var(--shadow);
+  padding: 1rem;
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+}
+
+/* Messages */
+.msg {
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius);
+  margin: 0.4rem 0;
+  white-space: pre-wrap;
+  max-width: 80%;
+  line-height: 1.4;
+  word-break: break-word;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.user {
+  background: var(--user-bubble);
+  align-self: flex-end;
+  color: var(--text-dark);
+  border: 1px solid #cce6d5;
+}
+
+.bot {
+  background: var(--bot-bubble);
+  align-self: flex-start;
+  color: var(--text-light);
+  border: 1px solid #eee;
+}
+
+/* Form Area */
+form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 700px;
+}
+
+input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  outline: none;
+  font-size: 1rem;
+  color: var(--text-dark);
+  background: #fff;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.8rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Scrollbar (for desktop) */
+#chat::-webkit-scrollbar {
+  width: 8px;
+}
+#chat::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  body { padding: 1rem; }
+  #chat { height: 350px; }
+}
